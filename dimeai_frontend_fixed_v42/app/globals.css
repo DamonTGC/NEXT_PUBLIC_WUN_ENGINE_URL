@@ -1,0 +1,1357 @@
+
+:root {
+  --bg: #050507;
+  --card-bg: #080911;
+  --card-border: #f6c55233;
+  --accent: #f6c552;
+  --accent-soft: rgba(246,197,82,0.16);
+  --accent-strong: #ffd970;
+  --text-main: #f7f7f7;
+  --text-sub: #b8bfd4;
+  --text-ev: #35d98a;
+  --danger: #ff5c7a;
+  --tile-radius: 18px;
+  --transition-fast: 0.18s ease-out;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #1b1305 0, #050507 45%, #000 100%);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 32px 16px 80px;
+}
+
+.app-frame {
+  width: 100%;
+  max-width: 1220px;
+  background: linear-gradient(145deg, rgba(5,5,7,0.84), rgba(5,5,7,0.72));
+  border-radius: 26px;
+  box-shadow:
+    0 0 0 1px rgba(246,197,82,0.25),
+    0 24px 80px rgba(0,0,0,0.9);
+  padding: 24px 24px 72px;
+}
+
+/* blurred odds numbers background */
+.app-frame::before {
+  content: "";
+  position: absolute;
+  inset: -120px;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(246,197,82,0.18) 0, transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(246,197,82,0.16) 0, transparent 55%);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* top header */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+
+.brand-coin {
+  width: 150px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-image: url("/logo/dimeai-coin.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 3px solid rgba(255,215,128,0.6);
+  box-shadow:
+    0 0 14px rgba(246,197,82,0.85),
+    0 0 32px rgba(246,197,82,0.55),
+    inset 0 0 10px rgba(255,215,128,0.4);
+}
+
+
+
+.brand-text-main {
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  font-size: 16px;
+}
+
+.brand-sub {
+  font-size: 11px;
+  color: var(--text-sub);
+}
+
+.app-user {
+  text-align: right;
+  font-size: 11px;
+}
+
+.app-user span {
+  display: block;
+}
+
+.app-user .tier {
+  color: var(--accent);
+}
+
+/* search row */
+.search-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) auto;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.search-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(11,12,24,0.85);
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: 1px solid rgba(246,197,82,0.28);
+}
+
+.search-input span.icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #444, #111);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.search-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-size: 13px;
+  outline: none;
+}
+
+.search-input input::placeholder {
+  color: var(--text-sub);
+}
+
+.button-primary {
+  border-radius: 999px;
+  border: none;
+  background: radial-gradient(circle at 30% 0, var(--accent-strong), var(--accent));
+  color: #111;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 9px 18px;
+  cursor: pointer;
+  box-shadow: 0 8px 26px rgba(246,197,82,0.45);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.button-primary span.chip {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.18);
+}
+
+/* league filter row */
+.league-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+
+.league-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.league-pill {
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  color: var(--text-sub);
+  cursor: pointer;
+  background: transparent;
+  font-size: 11px;
+}
+
+.league-pill.active {
+  border-color: rgba(246,197,82,0.7);
+  background: rgba(246,197,82,0.08);
+  color: var(--accent-strong);
+}
+
+/* explanation strip under search bar */
+.explain-strip {
+  margin-bottom: 14px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: rgba(11,12,24,0.95);
+  border: 1px solid rgba(246,197,82,0.22);
+  font-size: 11px;
+  color: var(--text-sub);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.explain-strip strong {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+/* tile grid */
+.tile-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 1100px) {
+  .tile-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+}
+@media (max-width: 900px) {
+  .tile-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 700px) {
+  .tile-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 480px) {
+  .tile-grid { grid-template-columns: repeat(1, minmax(0,1fr)); }
+}
+
+/* flip tile */
+.tile-wrapper {
+  perspective: 1200px;
+}
+
+.tile-card {
+  position: relative;
+  width: 100%;
+  padding-top: 130%; /* 1.3:1 ratio */
+  cursor: pointer;
+}
+
+.tile-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform var(--transition-fast);
+  transform-style: preserve-3d;
+}
+
+.tile-wrapper.flipped .tile-inner {
+  transform: rotateY(180deg);
+}
+
+.tile-face {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--tile-radius);
+  background: radial-gradient(circle at 0 0, #161827, #080911 55%);
+  border: 1px solid var(--card-border);
+  padding: 10px 10px 12px;
+  backface-visibility: hidden;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.85);
+}
+
+/* front */
+.tile-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tile-header {
+  display: flex;
+  gap: 8px;
+}
+
+.tile-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 20%, #2d7cff, #183366);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.tile-badge span:nth-child(1) {
+  font-size: 12px;
+}
+
+.tile-meta {
+  flex: 1;
+}
+
+.tile-meta-main {
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.tile-meta-sub {
+  font-size: 10px;
+  color: var(--text-sub);
+}
+
+.tile-ev {
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-ev);
+}
+
+/* footer row on front */
+.tile-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 9px;
+  color: var(--text-sub);
+  margin-top: 6px;
+}
+
+.tile-footer strong {
+  font-size: 10px;
+  color: var(--text-main);
+}
+
+/* back face */
+.tile-back {
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tile-back-top {
+  display: block;
+}
+
+.tile-back-middle {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.tile-back-metric {
+  flex: 1;
+  padding: 6px 7px;
+  border-radius: 10px;
+  background: rgba(9,10,18,0.95);
+  font-size: 10px;
+}
+
+.tile-back-metric label {
+  display: block;
+  font-size: 9px;
+  color: var(--text-sub);
+  margin-bottom: 2px;
+}
+
+.tile-back-metric strong {
+  font-size: 12px;
+}
+
+.tile-back-chart {
+  flex: 1.2;
+  padding: 6px 7px;
+  border-radius: 12px;
+  background: rgba(9,10,18,0.98);
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 52px;
+  margin-top: 4px;
+}
+
+.chart-bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(to top, #35d98a, #8df7c3);
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 8px;
+  margin-top: 4px;
+  color: var(--text-sub);
+}
+
+.tile-back-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  font-size: 9px;
+}
+
+.tile-back-bottom button {
+  border-radius: 999px;
+  border: 1px solid rgba(246,197,82,0.5);
+  background: rgba(246,197,82,0.08);
+  color: var(--accent-strong);
+  padding: 4px 8px;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+/* modal for top books */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+}
+
+.modal-panel {
+  width: min(480px, 92vw);
+  max-height: 70vh;
+  background: radial-gradient(circle at 0 0, #181828, #050509);
+  border-radius: 18px;
+  border: 1px solid rgba(246,197,82,0.4);
+  padding: 14px 16px 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.modal-header button {
+  border: none;
+  background: transparent;
+  color: var(--text-sub);
+  cursor: pointer;
+}
+
+.modal-list {
+  margin-top: 6px;
+  padding: 0;
+  list-style: none;
+  font-size: 11px;
+}
+
+.modal-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(255,255,255,0.06);
+}
+
+/* bottom nav */
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  z-index: 50;
+}
+
+.bottom-nav-inner {
+  background: rgba(5,5,8,0.98);
+  border-radius: 999px;
+  border: 1px solid rgba(246,197,82,0.4);
+  display: inline-flex;
+  padding: 4px 8px;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.nav-pill {
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 11px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  color: var(--text-sub);
+}
+
+.nav-pill.active {
+  border-color: rgba(246,197,82,0.7);
+  background: rgba(246,197,82,0.18);
+  color: var(--accent-strong);
+}
+
+/* front face re-layout */
+.tile-front-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+
+.tile-jersey {
+  width: 52px;
+  height: 62px;
+  border-radius: 10px;
+  background: radial-gradient(circle at 30% 10%, #ff6464, #a31818);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.7), 0 10px 18px rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.tile-jersey span.jersey-num {
+  font-size: 16px;
+}
+
+.tile-jersey span.jersey-tag {
+  font-size: 9px;
+  opacity: 0.85;
+}
+
+.tile-front-text-primary {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.tile-front-text-sub {
+  font-size: 10px;
+  color: var(--text-sub);
+}
+
+.tile-front-text-market {
+  margin-top: 2px;
+  font-size: 10px;
+  color: var(--text-main);
+}
+
+.tile-front-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.tile-front-odds {
+  font-size: 10px;
+  color: var(--text-sub);
+}
+
+.tile-front-ev {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-ev);
+}
+
+/* updated front layout to match BYU@TCU mock */
+.tile-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tile-front-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  margin-top: 4px;
+}
+
+.tile-jersey {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 10%, #ff984f, #ff6a00);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.7), 0 10px 20px rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.tile-front-pill {
+  margin-top: -6px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: #1b1f3a;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #e0e4ff;
+}
+
+.tile-front-text-sub {
+  font-size: 10px;
+  color: var(--text-main);
+}
+
+.tile-front-main-bet {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.tile-front-bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tile-front-odds {
+  font-size: 11px;
+  color: var(--text-main);
+}
+
+.tile-front-ev {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-ev);
+}
+
+/* Enlarged uniform centered tile text */
+.tile-front { text-align:center; }
+.tile-front-main-bet { font-size:20px !important; }
+.tile-front-text-sub { font-size:14px !important; }
+.tile-front-pill { font-size:14px !important; padding:6px 18px !important; }
+.tile-front-odds { font-size:16px !important; text-align:center; width:100%; }
+.tile-front-ev { font-size:22px !important; text-align:center; width:100%; }
+.tile-jersey { width:90px !important; height:90px !important; font-size:18px !important; }
+.tile-front-main { gap:10px !important; }
+
+.tile-jersey { object-fit: contain; border-radius:14px !important; }
+
+/* Shadow-styled sport icons */
+.tile-jersey {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.85), 0 0 0 2px rgba(0,0,0,0.8);
+  background: radial-gradient(circle at 30% 10%, #ffedc2, #f5a623);
+}
+
+/* DimeAI sport icon container with dynamic team-color border */
+.tile-jersey {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px !important;
+  border: 2px solid rgba(246,197,82,0.9);
+  background: radial-gradient(circle at 30% 10%, #111, #050507);
+  overflow: hidden;
+}
+
+/* ensure sport icons fit nicely */
+.tile-jersey {
+  width: 80px !important;
+  height: 80px !important;
+  object-fit: contain;
+  display: block;
+  padding: 10px;
+}
+
+/* enlarge sport icon 25% and overlap pill */
+.tile-jersey {
+  width: 100px !important;
+  height: 100px !important;
+  margin-top: -10px !important;
+}
+
+.tile-front-pill {
+  position: relative;
+  margin-top: -20px !important;
+  z-index: 5;
+}
+
+/* v12: dramatic overlap, angle, glow */
+.tile-jersey {
+  width: 110px !important;
+  height: 110px !important;
+  margin-top: -24px !important;
+  transform: rotate(-6deg);
+  filter: drop-shadow(0 14px 26px rgba(0,0,0,0.95));
+  transition: transform 0.18s ease-out, filter 0.18s ease-out;
+}
+
+.tile-front-main:hover .tile-jersey {
+  transform: rotate(-3deg) scale(1.03);
+  filter: drop-shadow(0 18px 34px rgba(0,0,0,0.98));
+}
+
+.tile-front-pill {
+  position: relative;
+  margin-top: -28px !important;
+  z-index: 6;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.85);
+}
+
+/* slight glow behind icon wrapper */
+.tile-front-main > div:first-child {
+  position: relative;
+}
+.tile-front-main > div:first-child::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 0%, rgba(246,197,82,0.4), transparent 70%);
+  opacity: 0.7;
+  z-index: -1;
+}
+
+/* v13: poppy text colors & larger metrics */
+.tile-front-pill {
+  color: #FFECAA !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.03em;
+  font-size: 15px !important;
+}
+
+.tile-front-main-bet {
+  font-size: 22px !important;
+  font-weight: 800 !important;
+}
+
+.tile-front-text-sub {
+  font-size: 14px !important;
+  color: #E3E7FF !important;
+}
+
+.tile-front-odds {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #F6F7FF !important;
+}
+
+.tile-front-ev {
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  text-shadow: 0 0 8px rgba(53,217,138,0.8);
+}
+
+/* back metrics larger & punchier */
+.tile-back-metric label {
+  font-size: 11px !important;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #E0E4FF !important;
+}
+
+.tile-back-metric strong {
+  font-size: 20px !important;
+  font-weight: 900 !important;
+}
+
+.tile-back-metric div {
+  font-size: 11px !important;
+  color: #C0C5E8 !important;
+}
+
+/* chart labels a bit brighter */
+.chart-labels span {
+  color: #E3E7FF !important;
+  font-weight: 600;
+}
+
+/* global tile body text bump */
+.tile-face {
+  font-size: 13px;
+}
+
+
+/* ==== HEADER SEARCH + WUN BLOCK ==== */
+.search-row { margin-bottom: 12px; }
+
+.search-wun-shell {
+  display: grid;
+  grid-template-columns: minmax(190px,230px) minmax(0,1fr);
+  gap: 10px;
+  align-items: stretch;
+}
+
+.search-wun-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: radial-gradient(circle at 0 0, #2b2a33, #14141c);
+  border: 1px solid rgba(255,217,128,0.25);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.8);
+}
+
+.search-wun-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  object-fit: contain;
+  background: #050507;
+}
+
+.search-wun-text { display:flex; flex-direction:column; line-height:1; }
+.search-wun-title { font-size:14px; font-weight:800; letter-spacing:0.08em; }
+.search-wun-sub { font-size:11px; text-transform:uppercase; color:#cfd4ff; }
+
+.search-wun-form {
+  display:flex;
+  align-items:center;
+  position: relative;
+  min-height: 190px;
+  border-radius: 40px;
+  padding: 26px 22px 26px 190px;
+  background: radial-gradient(circle at 0 0,#1a1a23,#050507);
+  border:1px solid rgba(255,217,128,0.3);
+  box-shadow:0 12px 32px rgba(0,0,0,0.9);
+}
+
+.search-wun-input {
+  flex:1; border:none; outline:none;
+  background:transparent;
+  color:#f7f7ff; font-size:13px;
+}
+.search-wun-input::placeholder { color:#7d8095; }
+
+.search-wun-button {
+  width:40px; height:40px;
+  margin-left:8px;
+  border-radius:999px;
+  border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 30% 0,#ffe9a6,#f6c552,#a86a15);
+  box-shadow:0 10px 24px rgba(0,0,0,0.95);
+  transition:transform .12s, box-shadow .12s;
+}
+.search-wun-button:hover {
+  transform:translateY(-1px) scale(1.03);
+  box-shadow:0 14px 30px rgba(0,0,0,0.98);
+}
+.search-wun-arrow { font-size:18px; font-weight:900; color:#050507; }
+
+@media(max-width:900px){
+  .search-wun-shell { grid-template-columns:1fr; }
+}
+
+
+/* Top band: Dime logo left (35%) and WUN+search right (65%) */
+.top-band {
+  display: grid;
+  grid-template-columns: 0.35fr 0.65fr;
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 14px;
+}
+
+.top-band-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: radial-gradient(circle at 0 0, #161623, #080810);
+  border: 1px solid rgba(255, 217, 128, 0.32);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+  min-height: 140px;
+}
+
+/* header simplified so main band is primary branding */
+.app-header {
+  justify-content: flex-end;
+}
+
+.app-brand {
+  display: none;
+}
+
+
+/* === Dime logo section taller, anchored bottom, stretching upward === */
+.top-band-brand {
+  min-height: 110px;
+  align-items: flex-end;
+  padding-top: 18px;
+  padding-bottom: 12px;
+}
+
+/* Make DIME coin + text larger inside its section */
+
+
+.brand-coin {
+  width: 150px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-image: url("/logo/dimeai-coin.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 3px solid rgba(255,215,128,0.6);
+  box-shadow:
+    0 0 14px rgba(246,197,82,0.85),
+    0 0 32px rgba(246,197,82,0.55),
+    inset 0 0 10px rgba(255,215,128,0.4);
+}
+
+
+
+.brand-text-main {
+  font-size: 18px;
+}
+
+.brand-sub {
+  font-size: 12px;
+}
+
+/* WUN + search section: taller search box, more rounded */
+.top-band-search {
+  display: flex;
+  align-items: stretch;
+}
+
+.search-wun-form {
+  display:flex;
+  align-items:center;
+  position: relative;
+  min-height: 190px;
+  border-radius: 40px;
+  padding: 26px 22px 26px 190px;
+  background: radial-gradient(circle at 0 0,#1a1a23,#050507);
+  border:1px solid rgba(255,217,128,0.3);
+  box-shadow:0 12px 32px rgba(0,0,0,0.9);
+}
+
+/* Make the entire WUN+search shell feel like a unified tall block */
+.search-wun-shell {
+  align-items: stretch;
+}
+
+/* Center leagues row and wrap in bordered pill bar */
+.league-row {
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.league-tabs {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(246,197,82,0.32);
+  background: radial-gradient(circle at 0 0, #141423, #070710);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.85);
+}
+
+/* Slightly larger league pills for readability */
+.league-pill {
+  padding: 6px 13px;
+  font-size: 12px;
+}
+
+/* Let the top band breathe a bit more down the page */
+.top-band {
+  margin-bottom: 18px;
+}
+
+
+/* v17 header tweaks based on annotated screenshot */
+
+/* hide explanation strip text under leagues */
+.explain-strip {
+  display: none !important;
+}
+
+/* enlarge DIMEAI block upward */
+.top-band-brand {
+  min-height: 140px;
+  padding-top: 26px;
+  padding-bottom: 16px;
+}
+
+/* bigger coin + text */
+
+
+.brand-coin {
+  width: 150px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-image: url("/logo/dimeai-coin.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 3px solid rgba(255,215,128,0.6);
+  box-shadow:
+    0 0 14px rgba(246,197,82,0.85),
+    0 0 32px rgba(246,197,82,0.55),
+    inset 0 0 10px rgba(255,215,128,0.4);
+}
+
+
+
+.brand-text-main {
+  font-size: 20px;
+}
+
+.brand-sub {
+  font-size: 13px;
+}
+
+/* extend head slightly further down */
+.top-band {
+  margin-bottom: 22px;
+}
+
+/* make WUN logo and search bigger/taller */
+.search-wun-logo {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.search-wun-img {
+  width: 40px;
+  height: 40px;
+}
+
+.search-wun-form {
+  display:flex;
+  align-items:center;
+  position: relative;
+  min-height: 190px;
+  border-radius: 40px;
+  padding: 26px 22px 26px 190px;
+  background: radial-gradient(circle at 0 0,#1a1a23,#050507);
+  border:1px solid rgba(255,217,128,0.3);
+  box-shadow:0 12px 32px rgba(0,0,0,0.9);
+}
+
+/* larger circular search button */
+.search-wun-button {
+  width: 46px;
+  height: 46px;
+}
+
+/* keep leagues centered and prominent */
+.league-row {
+  margin-top: 14px;
+  margin-bottom: 16px;
+}
+
+
+/* === v18: Header exactly like annotated mock === */
+
+/* top band: 35/65 split, full-width card already handled by app-frame */
+.top-band {
+  display: grid;
+  grid-template-columns: 0.35fr 0.65fr;
+  gap: 16px;
+  align-items: stretch;
+  margin-bottom: 22px;
+}
+
+/* left: big Dime AI block */
+.top-band-brand {
+  min-height: 130px;
+  padding: 22px 26px;
+  border-radius: 24px;
+  background: radial-gradient(circle at 0 0, #181827, #090910);
+  border: 1px solid rgba(246,197,82,0.36);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+
+.brand-coin {
+  width: 150px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-image: url("/logo/dimeai-coin.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 3px solid rgba(255,215,128,0.6);
+  box-shadow:
+    0 0 14px rgba(246,197,82,0.85),
+    0 0 32px rgba(246,197,82,0.55),
+    inset 0 0 10px rgba(255,215,128,0.4);
+}
+
+
+
+.brand-text-main {
+  font-size: 26px;
+  letter-spacing: 0.06em;
+}
+
+.brand-sub {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+/* right: WUN logo on top, tall search pill below */
+.top-band-search {
+  display: flex;
+  align-items: stretch;
+}
+
+.search-row {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.search-wun-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  height: 100%;
+}
+
+/* WUN logo box at top-left of right section */
+.search-wun-logo {
+  align-self: flex-start;
+  padding: 10px 16px;
+  border-radius: 16px;
+  background: radial-gradient(circle at 0 0, #202030, #101018);
+  border: 1px solid rgba(255,217,128,0.28);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.9);
+}
+
+/* taller search box */
+.search-wun-form {
+  display:flex;
+  align-items:center;
+  position: relative;
+  min-height: 190px;
+  border-radius: 40px;
+  padding: 26px 22px 26px 190px;
+  background: radial-gradient(circle at 0 0,#1a1a23,#050507);
+  border:1px solid rgba(255,217,128,0.3);
+  box-shadow:0 12px 32px rgba(0,0,0,0.9);
+}
+
+/* input & button sizing inside */
+.search-wun-input {
+  font-size: 14px;
+}
+
+.search-wun-button {
+  width: 48px;
+  height: 48px;
+}
+
+/* keep leagues centered with framed pill container */
+.league-row {
+  justify-content: center;
+  margin-top: 12px;
+  margin-bottom: 18px;
+}
+
+.league-tabs {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(246,197,82,0.38);
+  background: radial-gradient(circle at 0 0, #141423, #070710);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.9);
+}
+
+
+/* merge WUN logo inside search bar */
+.search-wun-form {
+  display:flex;
+  align-items:center;
+  position: relative;
+  min-height: 190px;
+  border-radius: 40px;
+  padding: 26px 22px 26px 190px;
+  background: radial-gradient(circle at 0 0,#1a1a23,#050507);
+  border:1px solid rgba(255,217,128,0.3);
+  box-shadow:0 12px 32px rgba(0,0,0,0.9);
+}
+.search-wun-form .inside {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 150px;
+  height: 150px;
+  border-radius: 32px;
+  background-image: url("/logo/wun-engine.png");
+  background-size: 100% auto;
+  background-position: center;
+}
+
+/* adjust input larger */
+.search-wun-input {
+  font-size: 16px;
+}
+
+/* button bigger */
+.search-wun-button {
+  width: 54px;
+  height: 54px;
+}
+
+
+/* ==== Moving matrix odds background ==== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: url("/bg/matrix-odds-gold.png");
+  background-size: 100% auto;
+  background-repeat: repeat;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 1;
+  pointer-events: none;
+  animation: matrixOddsDrift 40s linear infinite;
+}
+
+@keyframes matrixOddsDrift {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-55%); }
+}
+
+/* ==== DimeAI coin logo in header ==== */
+
+
+.brand-coin {
+  width: 150px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-image: url("/logo/dimeai-coin.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 3px solid rgba(255,215,128,0.6);
+  box-shadow:
+    0 0 14px rgba(246,197,82,0.85),
+    0 0 32px rgba(246,197,82,0.55),
+    inset 0 0 10px rgba(255,215,128,0.4);
+}
+
+
+
+/* ==== WUN Engine logo inside search bar ==== */
+.search-wun-form .inside {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 150px;
+  height: 150px;
+  border-radius: 32px;
+  background-image: url("/logo/wun-engine.png");
+  background-size: 100% auto;
+  background-position: center;
+}
+
+/* Global moving matrix odds background */
+body {
+  background-color: #050507;
+  background-image: url("/bg/matrix-odds-gold.png");
+  background-repeat: repeat-y;
+  background-position: center 0;
+  background-size: 100% auto;
+  animation: matrixScroll 35s linear infinite;
+}
+
+@keyframes matrixScroll {
+  0% { background-position-y: 0; }
+  100% { background-position-y: -480px; }
+}
+
+/* Make main frame more transparent so background shows */
+.app-frame {
+  width: 100%;
+  max-width: 1220px;
+  background: linear-gradient(145deg, rgba(5,5,7,0.84), rgba(5,5,7,0.72));
+  border-radius: 26px;
+  box-shadow:
+    0 0 0 1px rgba(246,197,82,0.25),
+    0 24px 80px rgba(0,0,0,0.9);
+  padding: 24px 24px 72px;
+}
+
+/* Grow header sections to fit oversized logos */
+.top-band-brand {
+  min-height: 180px;
+  align-items: center;
+}
+
+.top-band {
+  margin-bottom: 24px;
+}
+
+.search-wun-form {
+  display:flex;
+  align-items:center;
+  position: relative;
+  min-height: 190px;
+  border-radius: 40px;
+  padding: 26px 22px 26px 190px;
+  background: radial-gradient(circle at 0 0,#1a1a23,#050507);
+  border:1px solid rgba(255,217,128,0.3);
+  box-shadow:0 12px 32px rgba(0,0,0,0.9);
+}
